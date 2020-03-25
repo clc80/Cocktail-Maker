@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3AF30448242AFCC200784122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF30447242AFCC200784122 /* AppDelegate.swift */; };
 		3AF3044A242AFCC200784122 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF30449242AFCC200784122 /* SceneDelegate.swift */; };
-		3AF3044C242AFCC200784122 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3044B242AFCC200784122 /* ViewController.swift */; };
 		3AF3044F242AFCC200784122 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3044D242AFCC200784122 /* Main.storyboard */; };
 		3AF30451242AFCC400784122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AF30450242AFCC400784122 /* Assets.xcassets */; };
 		3AF30454242AFCC500784122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF30452242AFCC400784122 /* LaunchScreen.storyboard */; };
@@ -19,7 +18,6 @@
 		3AF30444242AFCC200784122 /* cocktailMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cocktailMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF30447242AFCC200784122 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AF30449242AFCC200784122 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3AF3044B242AFCC200784122 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3AF3044E242AFCC200784122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3AF30450242AFCC400784122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AF30453242AFCC400784122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -41,6 +39,7 @@
 			isa = PBXGroup;
 			children = (
 				3AF30446242AFCC200784122 /* cocktailMaker */,
+				3AF3045C242AFD2E00784122 /* Resources */,
 				3AF30445242AFCC200784122 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,15 +55,45 @@
 		3AF30446242AFCC200784122 /* cocktailMaker */ = {
 			isa = PBXGroup;
 			children = (
-				3AF30447242AFCC200784122 /* AppDelegate.swift */,
-				3AF30449242AFCC200784122 /* SceneDelegate.swift */,
-				3AF3044B242AFCC200784122 /* ViewController.swift */,
-				3AF3044D242AFCC200784122 /* Main.storyboard */,
-				3AF30450242AFCC400784122 /* Assets.xcassets */,
-				3AF30452242AFCC400784122 /* LaunchScreen.storyboard */,
+				3AF3045D242AFD4300784122 /* Model */,
+				3AF3045B242AFD1B00784122 /* View */,
+				3AF3045E242AFD4800784122 /* Controller */,
 				3AF30455242AFCC500784122 /* Info.plist */,
 			);
 			path = cocktailMaker;
+			sourceTree = "<group>";
+		};
+		3AF3045B242AFD1B00784122 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3AF3044D242AFCC200784122 /* Main.storyboard */,
+				3AF30450242AFCC400784122 /* Assets.xcassets */,
+				3AF30452242AFCC400784122 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3AF3045C242AFD2E00784122 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3AF30447242AFCC200784122 /* AppDelegate.swift */,
+				3AF30449242AFCC200784122 /* SceneDelegate.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3AF3045D242AFD4300784122 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3AF3045E242AFD4800784122 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +167,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AF3044C242AFCC200784122 /* ViewController.swift in Sources */,
 				3AF30448242AFCC200784122 /* AppDelegate.swift in Sources */,
 				3AF3044A242AFCC200784122 /* SceneDelegate.swift in Sources */,
 			);
