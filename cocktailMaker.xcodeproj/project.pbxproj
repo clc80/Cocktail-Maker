@@ -12,6 +12,8 @@
 		3AF3044F242AFCC200784122 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3044D242AFCC200784122 /* Main.storyboard */; };
 		3AF30451242AFCC400784122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AF30450242AFCC400784122 /* Assets.xcassets */; };
 		3AF30454242AFCC500784122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF30452242AFCC400784122 /* LaunchScreen.storyboard */; };
+		3AF30474242C3EFC00784122 /* CocktailResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF30473242C3EFC00784122 /* CocktailResults.swift */; };
+		3AF30476242C447B00784122 /* CocktailResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF30475242C447B00784122 /* CocktailResultController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		3AF30450242AFCC400784122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AF30453242AFCC400784122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AF30455242AFCC500784122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AF30473242C3EFC00784122 /* CocktailResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailResults.swift; sourceTree = "<group>"; };
+		3AF30475242C447B00784122 /* CocktailResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailResultController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 		3AF3045D242AFD4300784122 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3AF30473242C3EFC00784122 /* CocktailResults.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -92,6 +97,7 @@
 		3AF3045E242AFD4800784122 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3AF30475242C447B00784122 /* CocktailResultController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -169,6 +175,8 @@
 			files = (
 				3AF30448242AFCC200784122 /* AppDelegate.swift in Sources */,
 				3AF3044A242AFCC200784122 /* SceneDelegate.swift in Sources */,
+				3AF30476242C447B00784122 /* CocktailResultController.swift in Sources */,
+				3AF30474242C3EFC00784122 /* CocktailResults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
