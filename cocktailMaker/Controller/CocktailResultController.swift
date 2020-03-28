@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 class CocktailResultController {
     // MARK: - Properties
     
     //To store our cocktails
-    var cocktailResults: [CocktailResults] = []
+    var cocktailResults: DrinksResults?
     
     //We want to keep track of our possible errors
     enum NetworkError: Error {
@@ -28,16 +29,18 @@ class CocktailResultController {
         case delete = "DELETE"
     }
     
-    
     enum Endpoints {
         static let baseURL = "https://www.thecocktaildb.com/api/json/v1/1/"
         //This is where we store the different endpoint cases. They are named based on their functionality
         case getRandomCocktail
+        case getImage(String)
         
         var stringValue: String {
             switch self {
             case .getRandomCocktail:
                 return Endpoints.baseURL + "/random.php"
+            case.getImage(let imagePath):
+                return imagePath
             }
         }
         var url: URL {
@@ -48,7 +51,7 @@ class CocktailResultController {
     // MARK: - Functions
     
     // Function to get a random Drink
-    func getRandomCocktail(completion: @escaping (Result<[CocktailResults], NetworkError>) -> Void) {
+    func getRandomCocktail(completion: @escaping (Result<DrinksResults, NetworkError>) -> Void) {
         
         //Build up the URL with necessary information
         var request = URLRequest(url: Endpoints.getRandomCocktail.url)
@@ -68,14 +71,32 @@ class CocktailResultController {
             //Decode the data
             let decoder = JSONDecoder()
             do {
-                self.cocktailResults = try decoder.decode([CocktailResults].self, from: data)
-                completion(.success(self.cocktailResults))
-            } catch {
+                self.cocktailResults = try decoder.decode(DrinksResults.self, from: data)
+                completion(.success(self.cocktailResults!))
+            } catch  {
                 completion(.failure(.decodeFailed))
                 return
             }
         }.resume()
     }
     
-    
+    func downloadCocktailImage(path: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+        //Build up the URL with necessary information
+        var request = URLRequest(url: Endpoints.getImage(path).url)
+        request.httpMethod = HTTPMethod.get.rawValue
+        
+        //Request the image
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard error == nil else {
+                completion(.failure(.otherError(error!)))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            completion(.success(data))
+        }.resume()
+    }
 }

@@ -12,27 +12,27 @@ struct CocktailResults: Codable {
     let drinkName: String
     let imageString: String
     
-    let ingredient1: String
-    let ingredient2: String
-    let ingredient3: String
-    let ingredient4: String
-    let ingredient5: String
-    let ingredient6: String
-    let ingredient7: String
-    let ingredient8: String
-    let ingredient9: String
-    let ingredient10: String
+    let ingredient1: String?
+    let ingredient2: String?
+    let ingredient3: String?
+    let ingredient4: String?
+    let ingredient5: String?
+    let ingredient6: String?
+    let ingredient7: String?
+    let ingredient8: String?
+    let ingredient9: String?
+    let ingredient10: String?
     
-    let measurement1: String
-    let measurement2: String
-    let measurement3: String
-    let measurement4: String
-    let measurement5: String
-    let measurement6: String
-    let measurement7: String
-    let measurement8: String
-    let measurement9: String
-    let measurement10: String
+    let measurement1: String?
+    let measurement2: String?
+    let measurement3: String?
+    let measurement4: String?
+    let measurement5: String?
+    let measurement6: String?
+    let measurement7: String?
+    let measurement8: String?
+    let measurement9: String?
+    let measurement10: String?
     
     let instructions: String
  
@@ -62,10 +62,10 @@ struct CocktailResults: Codable {
         case measurement9 = "strMeasure9"
         case measurement10 = "strMeasure10"
         
-        case instructions = "strInstrctions"
+        case instructions = "strInstructions"
     }
 }
 
-struct drinksResults: Codable {
-    let results: [CocktailResults]
+struct DrinksResults: Codable {
+    let drinks: [CocktailResults]
 }
