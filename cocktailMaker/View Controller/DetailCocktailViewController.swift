@@ -17,12 +17,15 @@ class DetailCocktailViewController: UIViewController {
     @IBOutlet var instructionsTextView: UITextView!
     
     // MARK: - Properties
-    var cocktailResultController =  CocktailResultController()
+    var cocktailResultController = CocktailResultController()
     var cocktailResult: CocktailResults?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getCocktail()
+        view.setGradientBackground3Colors(colorOne: Colors.mainBlue, colorTwo: .black, colorThree: Colors.mainBlue)
+        IngredientsTextView.setGradientBackground2Colors(colorOne: Colors.mainBlue, colorTwo: .black)
+        instructionsTextView.setGradientBackground2Colors(colorOne: .black, colorTwo: Colors.mainBlue)
+        updateViews()
     }
      
     // MARK: - Functions
@@ -31,22 +34,12 @@ class DetailCocktailViewController: UIViewController {
         drinkNameLabel.text = cocktail.drinkName
         getImage(with: cocktail)
         getIngredients(with: cocktail)
-        instructionsTextView.text = "Instructions:\n \(cocktail.instructions)"
+        instructionsTextView.text = "Instructions:\n\(cocktail.instructions)"
     }
-    
-    func getCocktail() {
-        cocktailResultController.getRandomCocktail { (result) in
-            do {
-                let cocktail = try result.get()
-                DispatchQueue.main.async {
-                    self.cocktailResult = cocktail.drinks[0]
-                    self.updateViews()
-                }
-                
-            } catch {
-                print(result)
-            }
-        }
+    override func viewWillDisappear(_ animated: Bool) {
+        drinkNameLabel.text = ""
+        IngredientsTextView.text = ""
+        instructionsTextView.text = ""
     }
     
     func getImage(with cocktail: CocktailResults) {
