@@ -74,8 +74,14 @@ class DetailCocktailViewController: UIViewController {
                 measurementArray.append(measurementValue!)
             }
         }
-        let measurement = measurementArray.compactMap{ $0 }
+        var measurement = measurementArray.compactMap{ $0 }
         IngredientsTextView.text = "Ingredients: \n"
+        if ingredient.count != measurement.count  {
+            let missing = ingredient.count - measurement.count
+            for _ in 0..<missing {
+                measurement.append("")
+            }
+        }
         for i in 0..<ingredient.count {
             IngredientsTextView.text += "- \(ingredient[i]): \(measurement[i])\n"
         }

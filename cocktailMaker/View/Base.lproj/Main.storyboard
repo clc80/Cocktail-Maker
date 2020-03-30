@@ -108,7 +108,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="yP0-yz-CQb"/>
                     <connections>
-                        <outlet property="searchBar" destination="Y0g-3Y-usg" id="c3e-fC-aNA"/>
+                        <outlet property="searchBar" destination="LGM-JY-hPD" id="lb3-ia-Nvl"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFF-HH-Nzw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -211,7 +211,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="vOk-Bd-udO"/>
-        <segue reference="1JH-3Q-o2m"/>
+        <segue reference="cNu-h5-eYi"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Ingredient" width="320" height="73"/>
