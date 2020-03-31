@@ -35,6 +35,7 @@ class CocktailResultController {
         case getRandomCocktail
         case getImage(String)
         case searchByName(String)
+        case searchByLetter(String)
         
         var stringValue: String {
             switch self {
@@ -44,6 +45,8 @@ class CocktailResultController {
                 return imagePath
             case .searchByName(let searchTerm):
                 return Endpoints.baseURL + "search.php?s=\(searchTerm)"
+            case .searchByLetter((let searchTerm)):
+                return Endpoints.baseURL + "search.php?f=\(searchTerm)"
             }
         }
         var url: URL {
@@ -132,4 +135,34 @@ class CocktailResultController {
             }
         }.resume()
     }
+    
+    //Get a list of drinks by first letter
+    func searchCocktailByLetter(searchTerm: String, completion: @escaping (Result<DrinksResults, NetworkError>) -> Void) {
+        //Build up the URL with necessary information
+        var request = URLRequest(url: Endpoints.searchByLetter(searchTerm).url)
+        request.httpMethod = HTTPMethod.get.rawValue
+        
+        //Request the data
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard error == nil else {
+                completion(.failure(.otherError(error!)))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            //Decode the data
+            let decoder = JSONDecoder()
+            do {
+                self.cocktailResults = try decoder.decode(DrinksResults.self, from: data)
+                completion(.success(self.cocktailResults!))
+            } catch  {
+                completion(.failure(.decodeFailed))
+                return
+            }
+        }.resume()
+    }
+
 }

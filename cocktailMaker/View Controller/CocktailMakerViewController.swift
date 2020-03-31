@@ -14,6 +14,7 @@ class CocktailMakerViewController: UIViewController {
     private let cocktailResultController = CocktailResultController()
     var cocktailResults: CocktailResults?
     var drinks: DrinksResults?
+    var buttonPressed: SearchType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +25,13 @@ class CocktailMakerViewController: UIViewController {
     
     //MARK: - IBActions
     @IBAction func searchByNameTapped(_ sender: Any) {
-        
+        buttonPressed = .searchByName
     }
     @IBAction func searchByIngredientTapped(_ sender: Any) {
+        buttonPressed = .searchByIngredient
     }
     @IBAction func listAllDrinksByLetterTapped(_ sender: Any) {
+        buttonPressed = .locateByLetter
     }
     @IBAction func randomCocktailTapped(_ sender: Any) {
         getCocktail()
@@ -50,12 +53,17 @@ class CocktailMakerViewController: UIViewController {
     
     // MARK: - Navigation
 
-       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-           if segue.identifier == "showDetailSegue", let detailVC = segue.destination as? DetailCocktailViewController {
-               //dependency injection
-               detailVC.cocktailResult = cocktailResults
-           } else if segue.identifier == "searchByNameSegue", let tableVC = segue.destination as? CocktailTableViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetailSegue", let detailVC = segue.destination as? DetailCocktailViewController {
+            //dependency injection
+            detailVC.cocktailResult = cocktailResults
+        } else if segue.identifier == "searchByNameSegue", let tableVC = segue.destination as? CocktailTableViewController {
+            buttonPressed = .searchByName
+            tableVC.buttonPressed = buttonPressed
+        } else if segue.identifier == "listByLetterSegue", let tableVC = segue.destination as? CocktailTableViewController {
+            buttonPressed = .locateByLetter
+            tableVC.buttonPressed = buttonPressed
         }
-       }
+    }
 
 }

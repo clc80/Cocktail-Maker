@@ -14,7 +14,8 @@ class CocktailTableViewController: UITableViewController {
     @IBOutlet var searchBar: UISearchBar!
     
     
-    //MARK: - Properteis
+    //MARK: - Properties
+    var buttonPressed: SearchType?
     var cocktailResultController = CocktailResultController()
     var cocktails: [CocktailResults] = [] {
         didSet {
@@ -42,6 +43,36 @@ class CocktailTableViewController: UITableViewController {
         return cell
     }
     
+    // MARK:  - Functions
+    func whichButtonWasPushed(searchTerm: String) {
+        switch buttonPressed {
+        case .searchByName:
+            cocktailResultController.searchCocktailByName(searchTerm: searchTerm) { (result) in
+                do {
+                    let drinks = try result.get()
+                    DispatchQueue.main.async {
+                        self.cocktails = drinks.drinks
+                    }
+                } catch {
+                    print(result)
+                }
+            }
+        case .locateByLetter:
+            cocktailResultController.searchCocktailByLetter(searchTerm: searchTerm) { (result) in
+                do {
+                    let drinks = try result.get()
+                    DispatchQueue.main.async {
+                        self.cocktails = drinks.drinks
+                    }
+                } catch {
+                    print(result)
+                }
+            }
+        default:
+            return
+        }
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -57,32 +88,10 @@ class CocktailTableViewController: UITableViewController {
 // MARK: - Extension
 
 extension CocktailTableViewController: UISearchBarDelegate {
-    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchTerm = searchBar.text else { return }
-        
-        cocktailResultController.searchCocktailByName(searchTerm: searchTerm) { (result) in
-            do {
-                let drinks = try result.get()
-                DispatchQueue.main.async {
-                    self.cocktails = drinks.drinks
-                }
-            } catch {
-                print(result)
-            }
-        }
-    }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchTerm = searchBar.text else { return }
-        
-        cocktailResultController.searchCocktailByName(searchTerm: searchTerm) { (result) in
-            do {
-                let drinks = try result.get()
-                DispatchQueue.main.async {
-                    self.cocktails = drinks.drinks
-                }
-            } catch {
-                print(result)
-            }
-        }
+
+        self.whichButtonWasPushed(searchTerm: searchTerm)
+
     }
 }
