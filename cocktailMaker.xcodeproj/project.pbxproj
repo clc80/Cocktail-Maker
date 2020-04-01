@@ -11,6 +11,7 @@
 		3AA8BB70242EFF3E00D08799 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8BB6F242EFF3E00D08799 /* Constants.swift */; };
 		3AA8BB722431673400D08799 /* CocktailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8BB712431673400D08799 /* CocktailTableViewController.swift */; };
 		3AA8BB762432B03500D08799 /* SearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8BB752432B03500D08799 /* SearchType.swift */; };
+		3AA8BB782433EAB400D08799 /* IngredientSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8BB772433EAB400D08799 /* IngredientSearch.swift */; };
 		3AF30448242AFCC200784122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF30447242AFCC200784122 /* AppDelegate.swift */; };
 		3AF3044A242AFCC200784122 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF30449242AFCC200784122 /* SceneDelegate.swift */; };
 		3AF3044F242AFCC200784122 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3044D242AFCC200784122 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 		3AA8BB6F242EFF3E00D08799 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3AA8BB712431673400D08799 /* CocktailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailTableViewController.swift; sourceTree = "<group>"; };
 		3AA8BB752432B03500D08799 /* SearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchType.swift; sourceTree = "<group>"; };
+		3AA8BB772433EAB400D08799 /* IngredientSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSearch.swift; sourceTree = "<group>"; };
 		3AF30444242AFCC200784122 /* cocktailMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cocktailMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF30447242AFCC200784122 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AF30449242AFCC200784122 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			children = (
 				3AF30473242C3EFC00784122 /* CocktailResults.swift */,
 				3AA8BB752432B03500D08799 /* SearchType.swift */,
+				3AA8BB772433EAB400D08799 /* IngredientSearch.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -121,8 +124,8 @@
 		3AF3047F242D667100784122 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3AF30480242D669400784122 /* DetailCocktailViewController.swift */,
 				3AF30482242D825400784122 /* CocktailMakerViewController.swift */,
+				3AF30480242D669400784122 /* DetailCocktailViewController.swift */,
 				3AA8BB712431673400D08799 /* CocktailTableViewController.swift */,
 			);
 			path = "View Controller";
@@ -200,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AF30448242AFCC200784122 /* AppDelegate.swift in Sources */,
+				3AA8BB782433EAB400D08799 /* IngredientSearch.swift in Sources */,
 				3AA8BB722431673400D08799 /* CocktailTableViewController.swift in Sources */,
 				3AA8BB6E242EFE4200D08799 /* UIView+Extension.swift in Sources */,
 				3AF30481242D669400784122 /* DetailCocktailViewController.swift in Sources */,

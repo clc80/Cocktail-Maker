@@ -22,6 +22,12 @@ class CocktailTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
+    var drinks: [IngredientSearch] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    var cocktail: CocktailResults?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +37,23 @@ class CocktailTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cocktails.count
+        if cocktails.count <= 0 {
+            return drinks.count
+        } else {
+            return cocktails.count
+        }
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath)
-        let drink = cocktails[indexPath.row]
-        cell.textLabel?.text = drink.drinkName
-        
+        if cocktails.count <= 0 {
+            let drink = drinks[indexPath.row]
+            cell.textLabel?.text = drink.drinkName
+        } else {
+            let drink = cocktails[indexPath.row]
+            cell.textLabel?.text = drink.drinkName
+        }
         return cell
     }
     
@@ -68,8 +82,28 @@ class CocktailTableViewController: UITableViewController {
                     print(result)
                 }
             }
+        case .searchByIngredient:
+            cocktailResultController.searchCocktailByIngredient(searchTerm: searchTerm) { (result) in
+                do {
+                    let drinks = try result.get()
+                    DispatchQueue.main.async {
+                        self.drinks = drinks.drinks
+                    }
+                } catch {
+                    print(result)
+                }
+            }
         default:
             return
+        }
+    }
+    
+    func getCocktailFromID(id: String) {
+        cocktailResultController.searchCocktailByID(id: id) { (result) in
+            guard let cocktail = try? result.get() else { return }
+            DispatchQueue.main.async {
+                self.cocktail = cocktail.drinks[0]
+            }
         }
     }
     
@@ -79,10 +113,19 @@ class CocktailTableViewController: UITableViewController {
         if segue.identifier == "ShowDetailFromTableSegue",
             let DetailVC = segue.destination as? DetailCocktailViewController,
             let selectedIndexPath = tableView.indexPathForSelectedRow {
-            DetailVC.cocktailResult = cocktails[selectedIndexPath.row]
+            if cocktails.count <= 0 {
+                let cocktailID = drinks[selectedIndexPath.row].drinkID
+                getCocktailFromID(id: cocktailID)
+                //Need to wait some time before switching to the next view controller
+                
+                DetailVC.cocktailResult = cocktail
+            } else {
+                DetailVC.cocktailResult = cocktails[selectedIndexPath.row]
+            }
         }
     }
 }
+
 
 
 // MARK: - Extension
@@ -90,8 +133,8 @@ class CocktailTableViewController: UITableViewController {
 extension CocktailTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchTerm = searchBar.text else { return }
-
+        
         self.whichButtonWasPushed(searchTerm: searchTerm)
-
+        
     }
 }

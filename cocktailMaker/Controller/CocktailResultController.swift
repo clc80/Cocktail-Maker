@@ -14,6 +14,7 @@ class CocktailResultController {
     
     //To store our cocktails
     var cocktailResults: DrinksResults?
+    var ingredientResults: IngredientDrinks?
     
     //We want to keep track of our possible errors
     enum NetworkError: Error {
@@ -36,6 +37,8 @@ class CocktailResultController {
         case getImage(String)
         case searchByName(String)
         case searchByLetter(String)
+        case searchByIngredient(String)
+        case searchById(String)
         
         var stringValue: String {
             switch self {
@@ -45,8 +48,12 @@ class CocktailResultController {
                 return imagePath
             case .searchByName(let searchTerm):
                 return Endpoints.baseURL + "search.php?s=\(searchTerm)"
-            case .searchByLetter((let searchTerm)):
+            case .searchByLetter(let searchTerm):
                 return Endpoints.baseURL + "search.php?f=\(searchTerm)"
+            case .searchByIngredient(let searchTerm):
+                return Endpoints.baseURL + "filter.php?i=\(searchTerm)"
+            case .searchById(let id):
+                return Endpoints.baseURL + "lookup.php?i=\(id)"
             }
         }
         var url: URL {
@@ -164,5 +171,63 @@ class CocktailResultController {
             }
         }.resume()
     }
+    
+    //Search drinks by Ingredient
+    func searchCocktailByIngredient(searchTerm: String, completion: @escaping (Result<IngredientDrinks, NetworkError>) -> Void) {
+        //Build up the URL with necessary information
+        var request = URLRequest(url: Endpoints.searchByIngredient(searchTerm).url)
+        request.httpMethod = HTTPMethod.get.rawValue
+        
+        //Request the data
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard error == nil else {
+                completion(.failure(.otherError(error!)))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            //Decode the data
+            let decoder = JSONDecoder()
+            do {
+                self.ingredientResults = try decoder.decode(IngredientDrinks.self, from: data)
+                completion(.success(self.ingredientResults!))
+            } catch  {
+                completion(.failure(.decodeFailed))
+                return
+            }
+        }.resume()
+    }
 
+    //Get a list of drinks by ID
+    func searchCocktailByID(id: String, completion: @escaping (Result<DrinksResults, NetworkError>) -> Void) {
+        //Build up the URL with necessary information
+        var request = URLRequest(url: Endpoints.searchById(id).url)
+        request.httpMethod = HTTPMethod.get.rawValue
+        
+        //Request the data
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard error == nil else {
+                completion(.failure(.otherError(error!)))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            //Decode the data
+            let decoder = JSONDecoder()
+            do {
+                self.cocktailResults = try decoder.decode(DrinksResults.self, from: data)
+                completion(.success(self.cocktailResults!))
+            } catch  {
+                completion(.failure(.decodeFailed))
+                return
+            }
+        }.resume()
+    }
+    
 }

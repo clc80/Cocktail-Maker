@@ -63,6 +63,9 @@ class CocktailMakerViewController: UIViewController {
         } else if segue.identifier == "listByLetterSegue", let tableVC = segue.destination as? CocktailTableViewController {
             buttonPressed = .locateByLetter
             tableVC.buttonPressed = buttonPressed
+        } else if segue.identifier == "searchByIngredientSegue", let tableVC = segue.destination as? CocktailTableViewController {
+            buttonPressed = .searchByIngredient
+            tableVC.buttonPressed = buttonPressed
         }
     }
 
