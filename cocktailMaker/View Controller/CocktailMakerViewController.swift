@@ -23,16 +23,16 @@ class CocktailMakerViewController: UIViewController {
     
     //MARK: - IBActions
     @IBAction func searchByNameTapped(_ sender: Any) {
-        buttonPressed = .searchByName
+       // buttonPressed = .searchByName
     }
     @IBAction func searchByIngredientTapped(_ sender: Any) {
-        buttonPressed = .searchByIngredient
+       // buttonPressed = .searchByIngredient
     }
     @IBAction func listAllDrinksByLetterTapped(_ sender: Any) {
-        buttonPressed = .locateByLetter
+        //buttonPressed = .locateByLetter
     }
     @IBAction func randomCocktailTapped(_ sender: Any) {
-        buttonPressed = .random
+        //buttonPressed = .random
     }
     
     
@@ -46,12 +46,18 @@ class CocktailMakerViewController: UIViewController {
         } else if segue.identifier == "searchByNameSegue", let tableVC = segue.destination as? CocktailTableViewController {
             buttonPressed = .searchByName
             tableVC.buttonPressed = buttonPressed
+            tableVC.tableView.backgroundColor = Colors.grayDark
+            //tableVC.tableView.setGradientBackground2Colors(colorOne: Colors.grayDark, colorTwo: Colors.grayLight)
         } else if segue.identifier == "listByLetterSegue", let tableVC = segue.destination as? CocktailTableViewController {
             buttonPressed = .locateByLetter
             tableVC.buttonPressed = buttonPressed
+            tableVC.tableView.backgroundColor = Colors.orangeDark
+            //tableVC.tableView.setGradientBackground2Colors(colorOne: Colors.orangeDark, colorTwo: Colors.orangeLight)
         } else if segue.identifier == "searchByIngredientSegue", let tableVC = segue.destination as? CocktailTableViewController {
             buttonPressed = .searchByIngredient
             tableVC.buttonPressed = buttonPressed
+            tableVC.tableView.backgroundColor = Colors.blueDark
+            //tableVC.tableView.setGradientBackground2Colors(colorOne: Colors.blueDark, colorTwo: Colors.blueLight)
         }
     }
 

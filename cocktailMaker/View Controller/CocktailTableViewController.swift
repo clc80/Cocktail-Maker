@@ -49,9 +49,18 @@ class CocktailTableViewController: UITableViewController {
         if cocktails.count <= 0 {
             let drink = drinks[indexPath.row]
             cell.textLabel?.text = drink.drinkName
+            cell.backgroundColor = Colors.blueDark
         } else {
             let drink = cocktails[indexPath.row]
             cell.textLabel?.text = drink.drinkName
+            switch buttonPressed {
+            case .searchByName:
+                cell.backgroundColor = Colors.grayDark
+            default:
+                cell.backgroundColor = Colors.orangeDark
+            }
+            
+            
         }
         return cell
     }
