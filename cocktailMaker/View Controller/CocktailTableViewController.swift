@@ -35,7 +35,6 @@ class CocktailTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if cocktails.count <= 0 {
             return drinks.count
@@ -98,15 +97,6 @@ class CocktailTableViewController: UITableViewController {
         }
     }
     
-    func getCocktailFromID(id: String) {
-        cocktailResultController.searchCocktailByID(id: id) { (result) in
-            guard let cocktail = try? result.get() else { return }
-            DispatchQueue.main.async {
-                self.cocktail = cocktail.drinks[0]
-            }
-        }
-    }
-    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -114,12 +104,11 @@ class CocktailTableViewController: UITableViewController {
             let DetailVC = segue.destination as? DetailCocktailViewController,
             let selectedIndexPath = tableView.indexPathForSelectedRow {
             if cocktails.count <= 0 {
-                let cocktailID = drinks[selectedIndexPath.row].drinkID
-                getCocktailFromID(id: cocktailID)
-                //Need to wait some time before switching to the next view controller
-                
-                DetailVC.cocktailResult = cocktail
+                let cocktail = drinks[selectedIndexPath.row]
+                DetailVC.cocktailID = cocktail
+                DetailVC.buttonPressed = buttonPressed
             } else {
+                DetailVC.buttonPressed = buttonPressed
                 DetailVC.cocktailResult = cocktails[selectedIndexPath.row]
             }
         }

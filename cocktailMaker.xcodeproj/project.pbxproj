@@ -125,8 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				3AF30482242D825400784122 /* CocktailMakerViewController.swift */,
-				3AF30480242D669400784122 /* DetailCocktailViewController.swift */,
 				3AA8BB712431673400D08799 /* CocktailTableViewController.swift */,
+				3AF30480242D669400784122 /* DetailCocktailViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";

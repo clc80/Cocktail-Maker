@@ -16,19 +16,106 @@ class DetailCocktailViewController: UIViewController {
     @IBOutlet var IngredientsTextView: UITextView!
     @IBOutlet var instructionsTextView: UITextView!
     
+    // For the Loading Screen
+    @IBOutlet var loadingView: UIView!
+    @IBOutlet var shineView: UIView!
+    
+    
     // MARK: - Properties
     var cocktailResultController = CocktailResultController()
     var cocktailResult: CocktailResults?
+    var buttonPressed: SearchType?
+    var cocktailID: IngredientSearch?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.setGradientBackground3Colors(colorOne: Colors.mainBlue, colorTwo: .black, colorThree: Colors.mainBlue)
-        IngredientsTextView.setGradientBackground2Colors(colorOne: Colors.mainBlue, colorTwo: .black)
-        instructionsTextView.setGradientBackground2Colors(colorOne: .black, colorTwo: Colors.mainBlue)
-        updateViews()
+        whichButtonWasPushed()
+        view.setGradientBackground2Colors(colorOne: Colors.mainBlue, colorTwo: .black)
+        shineView.setGradientBackground3Colors(colorOne: .clear, colorTwo: .white, colorThree: .clear)
+        showLoadingScreen()
     }
      
     // MARK: - Functions
+    func whichButtonWasPushed() {
+        switch buttonPressed {
+        case.random:
+            view.setGradientBackground2Colors(colorOne: Colors.pinkDark, colorTwo: Colors.pinkLight)
+            cocktailResultController.getRandomCocktail { (result) in
+                do {
+                    let cocktail = try result.get()
+                    DispatchQueue.main.async {
+                        self.cocktailResult = cocktail.drinks[0]
+                        self.hideLoadingScreen()
+                        self.updateViews()
+                    }
+                } catch {
+                    print(result)
+                }
+            }
+
+        case .searchByIngredient:
+            guard let cocktailID = cocktailID else { return }
+            view.setGradientBackground2Colors(colorOne: Colors.blueDark, colorTwo: Colors.blueLight)
+            cocktailResultController.searchCocktailByID(id: cocktailID.drinkID) { (result) in
+                do {
+                    let cocktail = try result.get()
+                    DispatchQueue.main.async {
+                        self.cocktailResult = cocktail.drinks[0]
+                        self.hideLoadingScreen()
+                        self.updateViews()
+                    }
+                } catch {
+                    print(result)
+                }
+            }
+        case .searchByName:
+            view.setGradientBackground2Colors(colorOne: Colors.grayDark, colorTwo: Colors.grayLight)
+            self.updateViews()
+            self.hideLoadingScreen()
+        case .locateByLetter:
+            view.setGradientBackground2Colors(colorOne: Colors.orangeDark, colorTwo: Colors.orangeLight)
+            self.updateViews()
+            self.hideLoadingScreen()
+        default:
+            self.updateViews()
+            self.hideLoadingScreen()
+        }
+    }
+    
+    func showLoadingScreen() {
+        loadingView.bounds.size.width = view.bounds.width - 25
+        loadingView.bounds.size.height = view.bounds.height - 40
+        loadingView.center = view.center
+        UIView.animate(withDuration: 0.5, animations: {
+            self.loadingView.alpha = 1
+        }) { (success) in
+            self.animateShineView()
+        }
+        view.addSubview(loadingView)
+    }
+    
+    func animateShineView() {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 1, delay: 0.2, options: [], animations: {
+                self.shineView.transform = CGAffineTransform(translationX: 0, y: -800)
+            }) { (success) in
+                //self.hideLoadingScreen()
+            }
+        }
+    }
+    
+    func hideLoadingScreen() {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: {
+                self.loadingView.transform = CGAffineTransform(translationX: 0, y: 10)
+            }) { (success) in
+                UIView.animate(withDuration: 0.3) {
+                    self.loadingView.transform = CGAffineTransform(translationX: 0, y: -800)
+                }
+            }
+        }
+    }
+    
     func updateViews() {
         guard let cocktail = cocktailResult else { return }
         drinkNameLabel.text = cocktail.drinkName
@@ -86,5 +173,4 @@ class DetailCocktailViewController: UIViewController {
             IngredientsTextView.text += "- \(ingredient[i]): \(measurement[i])\n"
         }
     }
-
 }

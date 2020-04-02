@@ -19,8 +19,6 @@ class CocktailMakerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.setGradientBackground3Colors(colorOne: Colors.mainBlue, colorTwo: .black, colorThree: Colors.mainBlue)
-        
-        //getCocktail()
     }
     
     //MARK: - IBActions
@@ -34,29 +32,17 @@ class CocktailMakerViewController: UIViewController {
         buttonPressed = .locateByLetter
     }
     @IBAction func randomCocktailTapped(_ sender: Any) {
-        getCocktail()
+        buttonPressed = .random
     }
     
-    // MARK: - Functions
-    func getCocktail() {
-        cocktailResultController.getRandomCocktail { (result) in
-            do {
-                let cocktail = try result.get()
-                DispatchQueue.main.async {
-                    self.cocktailResults = cocktail.drinks[0]
-                }
-            } catch {
-                print(result)
-            }
-        }
-    }
+    
     
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetailSegue", let detailVC = segue.destination as? DetailCocktailViewController {
-            //dependency injection
-            detailVC.cocktailResult = cocktailResults
+            buttonPressed = .random
+            detailVC.buttonPressed = buttonPressed
         } else if segue.identifier == "searchByNameSegue", let tableVC = segue.destination as? CocktailTableViewController {
             buttonPressed = .searchByName
             tableVC.buttonPressed = buttonPressed
