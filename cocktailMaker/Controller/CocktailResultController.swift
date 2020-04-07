@@ -47,7 +47,7 @@ class CocktailResultController {
             case .getImage(let imagePath):
                 return imagePath
             case .searchByName(let searchTerm):
-                return Endpoints.baseURL + "search.php?s=\(searchTerm)"
+                return Endpoints.baseURL + "search.php?s=\(searchTerm.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
             case .searchByLetter(let searchTerm):
                 return Endpoints.baseURL + "search.php?f=\(searchTerm)"
             case .searchByIngredient(let searchTerm):
@@ -229,5 +229,4 @@ class CocktailResultController {
             }
         }.resume()
     }
-    
 }
